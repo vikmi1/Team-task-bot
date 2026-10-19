@@ -1,53 +1,57 @@
+**English** · [Deutsch](README.de.md) · [Русский](README.ru.md)
+
 # Team Task Bot 🤖
 
-Telegram-бот для командной работы — общий список задач с категориями и статусами.
+A Telegram bot for teamwork — a shared task list with categories and statuses.
 
-## Возможности
+The bot's interface is in Russian; the messages below are translated for readability.
 
-| Команда / Кнопка | Описание |
+## Features
+
+| Command / Button | Description |
 |---|---|
-| `/start` | Запуск бота, показывает меню |
-| `/add` или `➕ Добавить задачу` | Пошаговое добавление задачи: текст → категория |
-| `/list` или `📋 Список задач` | Все задачи с кнопками смены статуса |
-| `📂 По категориям` | Задачи, сгруппированные по категории |
-| `/list_csv` или `📥 Скачать CSV` | Экспорт всех задач в файл `.csv` |
+| `/start` | Start the bot and show the menu |
+| `/add` or `➕ Add task` | Add a task step by step: text → category |
+| `/list` or `📋 Task list` | All tasks with buttons to change the status |
+| `📂 By category` | Tasks grouped by category |
+| `/list_csv` or `📥 Download CSV` | Export all tasks to a `.csv` file |
 
-## Категории
+## Categories
 
-🔧 Разработка · 🎨 Дизайн · 📢 Маркетинг · 🧪 Тестирование · 📋 Общее
+🔧 Development · 🎨 Design · 📢 Marketing · 🧪 Testing · 📋 General
 
-## Статусы
+## Statuses
 
-🟡 Новая → 🔵 В работе → ✅ Сделано · ❌ Отменена
+🟡 New → 🔵 In progress → ✅ Done · ❌ Cancelled
 
-## Стек
+## Stack
 
 - **Python 3.10+**
-- **aiogram 3** — фреймворк для Telegram-ботов
-- **SQLite3** — локальная база данных (встроена в Python)
-- **FSM** (Finite State Machine) — пошаговый ввод данных
+- **aiogram 3** — framework for Telegram bots
+- **SQLite3** — local database (built into Python)
+- **FSM** (Finite State Machine) — step-by-step data input
 
-## Структура проекта
+## Project structure
 
 ```
-├── main.py              # Точка входа
+├── main.py              # Entry point
 ├── requirements.txt
-├── .env.example         # Пример конфига
+├── .env.example         # Example config
 │
 ├── db/
-│   └── database.py      # Работа с SQLite: init, add, get, update
+│   └── database.py      # SQLite access: init, add, get, update
 │
 ├── handlers/
 │   ├── start.py         # /start
-│   ├── tasks.py         # /add, /list, /list_csv, callback-обработчики
-│   └── states.py        # FSM-состояния для пошагового ввода
+│   ├── tasks.py         # /add, /list, /list_csv, callback handlers
+│   └── states.py        # FSM states for step-by-step input
 │
 └── keyboards/
-    ├── reply.py         # Постоянное меню под полем ввода
-    └── inline.py        # Кнопки категорий и статусов внутри сообщений
+    ├── reply.py         # Persistent menu below the input field
+    └── inline.py        # Category and status buttons inside messages
 ```
 
-## Схема базы данных
+## Database schema
 
 ```sql
 CREATE TABLE tasks (
@@ -60,66 +64,66 @@ CREATE TABLE tasks (
 );
 ```
 
-## Установка и запуск
+## Installation and running
 
 ```bash
-# 1. Клонировать репозиторий
-git clone https://github.com/<your-username>/Team-task-bot.git
+# 1. Clone the repository
+git clone https://github.com/vikmi1/Team-task-bot.git
 cd Team-task-bot
 
-# 2. Создать виртуальное окружение
+# 2. Create a virtual environment
 python -m venv venv
 venv\Scripts\activate        # Windows
 # source venv/bin/activate   # Mac / Linux
 
-# 3. Установить зависимости
+# 3. Install dependencies
 pip install -r requirements.txt
 
-# 4. Создать файл .env с токеном бота
+# 4. Create a .env file with the bot token
 cp .env.example .env
-# Открыть .env и вставить токен от @BotFather
+# Open .env and paste the token from @BotFather
 
-# 5. Запустить
+# 5. Run
 python main.py
 ```
 
-## Как получить токен
+## How to get a token
 
-1. Открыть [@BotFather](https://t.me/BotFather) в Telegram
-2. Отправить `/newbot`
-3. Следовать инструкциям — получишь токен вида `1234567890:AAF...`
-4. Вставить токен в файл `.env`:
+1. Open [@BotFather](https://t.me/BotFather) in Telegram
+2. Send `/newbot`
+3. Follow the instructions — you will get a token like `1234567890:AAF...`
+4. Put the token into `.env`:
    ```
    BOT_TOKEN=1234567890:AAF...
    ```
 
-## Сценарий использования
+## Usage scenario
 
 ```
-Пользователь: /add
-Бот: ✏️ Введите текст задачи:
+User: /add
+Bot:  ✏️ Enter the task text:
 
-Пользователь: Подготовить отчёт за май
-Бот: 📂 Выберите категорию:
-     [🔧 Разработка] [🎨 Дизайн]
-     [📢 Маркетинг]  [🧪 Тестирование]
-     [📋 Общее]
+User: Prepare the May report
+Bot:  📂 Choose a category:
+      [🔧 Development] [🎨 Design]
+      [📢 Marketing]   [🧪 Testing]
+      [📋 General]
 
-Пользователь: нажимает «📢 Маркетинг»
-Бот: ✅ Задача #1 добавлена!
-     📝 Подготовить отчёт за май
-     📢 Категория: Маркетинг
-     🟡 Статус: Новая
+User: taps "📢 Marketing"
+Bot:  ✅ Task #1 added!
+      📝 Prepare the May report
+      📢 Category: Marketing
+      🟡 Status: New
 
-Пользователь: /list
-Бот: 📋 Все задачи:
-     🟡 #1 📢 Маркетинг
-        Подготовить отчёт за май
-        👤 Иван · 2026-05-20 23:00
-     [✏️ #1]   ← нажать для смены статуса
+User: /list
+Bot:  📋 All tasks:
+      🟡 #1 📢 Marketing
+         Prepare the May report
+         👤 Ivan · 2026-05-20 23:00
+      [✏️ #1]   ← tap to change the status
 
-Пользователь: нажимает «✏️ #1»
-Бот: Выберите новый статус:
-     [🟡 Новая] [🔵 В работе]
-     [✅ Сделано] [❌ Отменена]
+User: taps "✏️ #1"
+Bot:  Choose a new status:
+      [🟡 New] [🔵 In progress]
+      [✅ Done] [❌ Cancelled]
 ```
